@@ -1,4 +1,4 @@
-module goc-mcp
+module github.com/devlibx/goc-mcp
 
 go 1.24.2
 

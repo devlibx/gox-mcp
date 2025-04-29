@@ -1,0 +1,71 @@
+# GoC-MCP Project Rules
+
+## Code Style and Conventions
+
+1. **Package Naming**
+   - Use `mcpApi` for API interfaces and types
+   - Use `mcp` for implementation packages
+
+2. **Error Handling**
+   - Return errors rather than using panics (except in server startup)
+   - Use descriptive error messages
+   - Wrap errors with context when propagating up the call stack
+
+3. **Documentation**
+   - All exported functions, types, and interfaces must have documentation comments
+   - Include examples in documentation where appropriate
+   - Document non-obvious behavior and edge cases
+
+4. **Testing**
+   - Write tests for all exported functions
+   - Use table-driven tests for multiple test cases
+   - Use testify for assertions and test setup
+
+## Project Structure
+
+1. **Package Organization**
+   - `api/`: Core interfaces and types
+   - `mcp-metoro-io/`: Implementation of MCP server
+   - `examples/`: Example usage and test cases
+   - `memory-bank/`: Project documentation and context
+
+2. **Dependency Management**
+   - Use Uber's fx for dependency injection
+   - Keep external dependencies to a minimum
+   - Pin dependency versions in go.mod
+
+## Development Workflow
+
+1. **Feature Development**
+   - Start with interface design
+   - Implement concrete types
+   - Write tests
+   - Update documentation
+
+2. **Code Review Guidelines**
+   - Check for proper error handling
+   - Ensure documentation is complete
+   - Verify test coverage
+   - Look for potential race conditions
+
+3. **Version Control**
+   - Use descriptive commit messages
+   - Group related changes in a single commit
+   - Keep commits focused on a single concern
+
+## Implementation Patterns
+
+1. **Server Configuration**
+   - Use a Config struct for server configuration
+   - Allow for sensible defaults
+   - Support environment-based configuration
+
+2. **Tool Registration**
+   - Use generics for type-safe tool registration
+   - Generate JSON Schema from Go struct tags
+   - Provide clear error messages for registration failures
+
+3. **Transport Layer**
+   - Abstract transport details behind interfaces
+   - Support multiple transport options
+   - Handle connection lifecycle properly

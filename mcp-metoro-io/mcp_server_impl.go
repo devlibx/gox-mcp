@@ -4,10 +4,10 @@ package mcp
 
 import (
 	"fmt"
+	"github.com/devlibx/goc-mcp/api"
 	"github.com/devlibx/gox-base/v2"
 	mcpGo "github.com/metoro-io/mcp-golang"
 	"github.com/metoro-io/mcp-golang/transport/http"
-	"goc-mcp/api"
 )
 
 // serverImpl is the concrete implementation of the Server interface.

@@ -4,9 +4,9 @@ package mcp
 
 import (
 	"context"
+	"github.com/devlibx/goc-mcp/api"
 	"github.com/devlibx/gox-base/v2"
 	"go.uber.org/fx"
-	"goc-mcp/api"
 )
 
 var Provider = fx.Options(

@@ -2,8 +2,8 @@ package mcp
 
 import (
 	"errors"
+	"github.com/devlibx/goc-mcp/api"
 	mcpGo "github.com/metoro-io/mcp-golang"
-	"goc-mcp/api"
 )
 
 func RegisterTool[T any](server mcpApi.Server, name string, description string, handler func(input T) (*mcpGo.ToolResponse, error)) error {

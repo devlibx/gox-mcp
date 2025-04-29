@@ -3,14 +3,14 @@ package main
 import (
 	"context"
 	"fmt"
+	"github.com/devlibx/goc-mcp/api"
+	goxMcp "github.com/devlibx/goc-mcp/mcp-metoro-io"
 	"github.com/devlibx/gox-base/v2"
 	goxJsonUtils "github.com/devlibx/gox-base/v2/serialization/utils/json"
 	"github.com/go-resty/resty/v2"
 	mcpGo "github.com/metoro-io/mcp-golang"
 	"github.com/stretchr/testify/assert"
 	"go.uber.org/fx"
-	"goc-mcp/api"
-	goxMcp "goc-mcp/mcp-metoro-io"
 	"testing"
 	"time"
 )
