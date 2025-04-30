@@ -22,7 +22,7 @@ type serverImpl struct {
 }
 
 func (s *serverImpl) Start() error {
-	transport := http.NewHTTPTransport("/mcp")
+	transport := http.NewHTTPTransport("/message")
 	transport.WithAddr(fmt.Sprintf(":%d", s.config.Port))
 	s.server = mcpGo.NewServer(transport)
 	go func() {
