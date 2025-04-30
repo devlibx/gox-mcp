@@ -6,7 +6,7 @@ import (
 	"github.com/devlibx/gox-base/v2"
 	goxJsonUtils "github.com/devlibx/gox-base/v2/serialization/utils/json"
 	mcpApi "github.com/devlibx/gox-mcp/api"
-	goxMcp "github.com/devlibx/gox-mcp/mcp-metoro-io"
+	goxMcp "github.com/devlibx/gox-mcp/mcp-mark3labs"
 	"github.com/mark3labs/mcp-go/mcp"
 	"go.uber.org/fx"
 	"time"
