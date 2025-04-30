@@ -4,8 +4,8 @@ package mcp
 
 import (
 	"context"
-	"github.com/devlibx/goc-mcp/api"
 	"github.com/devlibx/gox-base/v2"
+	"github.com/devlibx/gox-mcp/api"
 	"go.uber.org/fx"
 )
 
@@ -25,7 +25,7 @@ func NewServer(cf gox.CrossFunction, config *mcpApi.Config) (mcpApi.Server, erro
 		CrossFunction: cf,
 		config:        config,
 	}
-	return ns, nil
+	return ns, ns.internalStart()
 }
 
 // NewServerLifecycleInvoker registers the server's lifecycle hooks with the fx lifecycle.

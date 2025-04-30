@@ -2,21 +2,24 @@ package main
 
 import (
 	"context"
-	mcpApi "github.com/devlibx/goc-mcp/api"
-	goxMcp "github.com/devlibx/goc-mcp/mcp-metoro-io"
+	"errors"
 	"github.com/devlibx/gox-base/v2"
-	mcpGo "github.com/metoro-io/mcp-golang"
+	goxJsonUtils "github.com/devlibx/gox-base/v2/serialization/utils/json"
+	mcpApi "github.com/devlibx/gox-mcp/api"
+	goxMcp "github.com/devlibx/gox-mcp/mcp-metoro-io"
+	"github.com/mark3labs/mcp-go/mcp"
 	"go.uber.org/fx"
 	"time"
 )
 
 func main() {
+
 	var server mcpApi.Server
 	app := fx.New(
 		fx.Provide(gox.NewNoOpCrossFunction),
 		fx.Supply(&mcpApi.Config{
 			Disabled: false,
-			Port:     1234,
+			Port:     8089,
 		}),
 		goxMcp.Provider,
 		fx.Invoke(goxMcp.NewServerLifecycleInvoker),
@@ -27,25 +30,23 @@ func main() {
 		panic(err)
 	}
 
-	type Content struct {
-		Title       string  `json:"title" jsonschema:"required,description=The title to submit"`
-		Description *string `json:"description" jsonschema:"description=The description to submit"`
+	type content struct {
+		Title       string  `json:"title"`
+		Description *string `json:"description"`
 	}
-	err = goxMcp.RegisterTool[Content](
-		server,
-		"prompt_tool",
-		"Prompt Tool",
-		func(input Content) (*mcpGo.ToolResponse, error) {
-			return mcpGo.NewToolResponse(
-				&mcpGo.Content{
-					Type:             "",
-					TextContent:      nil,
-					ImageContent:     nil,
-					EmbeddedResource: nil,
-					Annotations:      nil,
-				},
-			), nil
-		},
+
+	tool := mcp.NewTool("hello_tool",
+		mcp.WithDescription("Say hello to user"),
+		mcp.WithString("name", mcp.Required(), mcp.Description("Name of the person to greet")),
 	)
+
+	err = goxMcp.RegisterTool[content](server, tool, func(ctx context.Context, request mcp.CallToolRequest) (*mcp.CallToolResult, error) {
+		if paramsStr, err := goxJsonUtils.ObjectToString(request.Params); err == nil {
+			if obj, err := goxJsonUtils.StringToObject[content](paramsStr); err == nil {
+				return mcp.NewToolResultText("this is name " + obj.Title + " "), err
+			}
+		}
+		return nil, errors.New("name must be a string")
+	})
 	time.Sleep(1 * time.Hour)
 }
